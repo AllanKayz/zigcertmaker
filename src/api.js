@@ -7,17 +7,16 @@ const ctx = canvas.getContext("2d");
 const memberName = document.getElementById("memberName");
 const membershipCategory = document.getElementById("membershipCategory");
 const membershipID = document.getElementById("membershipID");
-const downloadBtnPNG = document.getElementById("download-btn-png");
-const downloadBtnPDF = document.getElementById("download-btn-pdf");
+const previewPlaceholder = document.getElementById("preview-placeholder");
 const year = new Date();
 
 const categories = document
   .getElementById("categories")
   .getElementsByTagName("option");
-let modalTitle = document.getElementById("allPurposeLabel");
-let modalContent = document.getElementById("modalContent");
+let modalTitle = document.getElementById("modalInfoTitle");
+let modalContent = document.getElementById("modalInfoContent");
 let multiPurposeBtn = document.getElementById("multiPurposeBtn");
-let downloadOption = "";
+let previewWindow = document.getElementById("preview");
 
 let category = "sample";
 let member = "sample";
@@ -28,6 +27,132 @@ image.src = "ZiGCertTemplate.png";
 image.onload = function () {
   drawImage(member, category, membershipNumber);
 };
+
+// Sidebar toggle
+function toggleSidebar() {
+  const sidebar = document.querySelector(".sidebar");
+  if (window.innerWidth <= 768) {
+    sidebar.classList.toggle("open");
+  } else {
+    sidebar.classList.toggle("collapsed");
+  }
+}
+
+// Close sidebar on mobile when clicking outside
+document.addEventListener("click", function (e) {
+  const sidebar = document.querySelector(".sidebar");
+  const menuToggle = document.querySelector(".menu-toggle");
+
+  if (
+    window.innerWidth <= 768 &&
+    sidebar.classList.contains("open") &&
+    !sidebar.contains(e.target) &&
+    !menuToggle.contains(e.target)
+  ) {
+    sidebar.classList.remove("open");
+  }
+});
+
+// Navigation functionality
+const views = {
+  create: { title: "Create New Certificate", viewId: "createView" },
+  templates: { title: "Templates", viewId: "templatesView" },
+  history: { title: "Certificate History", viewId: "historyView" },
+  settings: { title: "Settings", viewId: "settingsView" },
+};
+
+document.querySelectorAll(".nav-item").forEach((item) => {
+  item.addEventListener("click", function () {
+    // Update active nav item
+    document
+      .querySelectorAll(".nav-item")
+      .forEach((i) => i.classList.remove("active"));
+    this.classList.add("active");
+
+    // Get view name
+    const viewName = this.getAttribute("data-view");
+    const view = views[viewName];
+
+    if (view) {
+      // Update page title
+      document.getElementById("pageTitle").textContent = view.title;
+
+      // Show corresponding view
+      document
+        .querySelectorAll(".page-view")
+        .forEach((v) => v.classList.remove("active"));
+      document.getElementById(view.viewId).classList.add("active");
+
+      // Close sidebar on mobile after selection
+      if (window.innerWidth <= 768) {
+        document.querySelector(".sidebar").classList.remove("open");
+      }
+    }
+  });
+});
+
+// Modal functions
+function openModal(modal) {
+  if (modal == "certificate") {
+    document.getElementById("certificateModal").classList.add("active");
+  } else {
+    document.getElementById("infoModal").classList.add("active");
+    console.log(modal);
+    if (modal == "noInfo" || modal == "error") {
+      modalTitle.innerText = "Error";
+      modalContent.innerText =
+        "Missing Information, Please check the information entered and make sure all fields are filled";
+    } else if (modal == "catError") {
+      modalTitle.innerText = "Error";
+      modalContent.innerText = "Insert correct membership category";
+    }
+  }
+}
+
+function closeModal(modal) {
+  if (modal == "certificate") {
+    document.getElementById("certificateModal").classList.remove("active");
+  } else {
+    document.getElementById("infoModal").classList.remove("active");
+  }
+}
+
+// Close modal on outside click
+document
+  .getElementById("certificateModal")
+  .addEventListener("click", function (e) {
+    if (e.target === this) {
+      closeModal("certificate");
+    }
+  });
+
+document.getElementById("infoModal").addEventListener("click", function (e) {
+  if (e.target === this) {
+    closeModal("info");
+  }
+});
+
+function checkForErrors() {
+  if (
+    memberName.value == "" ||
+    membershipCategory.value == "" ||
+    membershipID.value == ""
+  ) {
+    openModal("noInfo");
+  } else if (
+    member == "sample" ||
+    category == "sample" ||
+    membershipNumber == "number"
+  ) {
+    openModal("error");
+  } else {
+    if (getData(membershipCategory)) {
+      openModal("certificate");
+    } else {
+      openModal("catError");
+    }
+  }
+}
 
 function centerText(value, y) {
   let textWidth = ctx.measureText(value).width;
@@ -50,7 +175,7 @@ membershipCategory.addEventListener(
     if (optionVals.indexOf(elem.value) > -1) {
       return elem;
     } else {
-      controlModalContent("catError");
+      openModal("catError");
       membershipCategory.value = "";
     }
   })
@@ -113,103 +238,53 @@ function hasDatePassed(dateString) {
 }
 
 function capitalizeWords(sentence) {
-  return sentence.split(' ').map(word => word.charAt(0).toUpperCase() + word.slice(1).toLowerCase()).join(' ');
+  return sentence
+    .split(" ")
+    .map((word) => word.charAt(0).toUpperCase() + word.slice(1).toLowerCase())
+    .join(" ");
 }
 
-function controlModalContent(errorType) {
-  if (errorType == "none") {
-    modalTitle.innerText = "Download Certificate as " + downloadOption;
-    modalContent.innerText =
-      "Insert Passkey to continue...[feature under development go ahead and download for now]";
-    multiPurposeBtn.innerText = "Download";
-    //multiPurposeBtn.setAttribute("hidden", false);
+function preview() {
+  previewPlaceholder.classList.add("hide");
+  drawImage(member, category, membershipNumber);
+  let dataURL = canvas.toDataURL();
+  let img = new Image();
+  img.src = dataURL;
 
-    if (multiPurposeBtn.innerText == "Download") {
-      switch (downloadOption) {
-        case "PNG":
-          multiPurposeBtn.addEventListener("click", () => {
-            drawImage(member, category, membershipNumber);
-            multiPurposeBtn.href = canvas.toDataURL();
-            multiPurposeBtn.download = "Certificate - " + capitalizeWords(member);
-            downloadOption = "";
-          });
-          break;
-
-        case "PDF":
-          downloadOption = "";
-          console.log(downloadOption);
-          multiPurposeBtn.addEventListener("click", () => {
-            drawImage(member, category, membershipNumber);
-            let imgData = canvas.toDataURL();
-            const certpdf = new jsPDF({
-              orientation: "landscape",
-              unit: "px",
-              format: [canvas.width, canvas.height],
-            });
-            certpdf.addImage(imgData, "PNG", 0, 0, canvas.width, canvas.height);
-            certpdf.save("Certificate-" + capitalizeWords(member) + ".pdf");
-          });
-          break;
-
-        default:
-          modalTitle.innerText = "Error";
-          modalContent.innerText = "Unknown Error, try again";
-          break;
-      }
-    }
-  } else if (errorType == "noInfo") {
-    modalTitle.innerText = "Error";
-    modalContent.innerText =
-      "Missing Information, Please check the information entered and make sure all fields are filled";
-    //multiPurposeBtn.setAttribute("hidden", true);
-  } else if (errorType == "catError") {
-    modalTitle.innerText = "Error";
-    modalContent.innerText = "Insert correct membership category";
-    //multiPurposeBtn.setAttribute("hidden", true);
+  if (previewWindow.children.length > 0) {
+    previewWindow.parentNode.removeChild(img);
+    let newDataURL = canvas.toDataURL();
+    let newImg = new Image();
+    newImg.src = newDataURL + "?" + new Date().getTime();
+    previewWindow.appendChild(newImg);
   } else {
-    modalTitle.innerText = "Error";
-    modalContent.innerText = "Re-enter information again";
-    //multiPurposeBtn.setAttribute("hidden",true);
+    previewWindow.appendChild(img);
   }
 }
 
-downloadBtnPNG.addEventListener("click", function () {
-  downloadOption = "PNG";
-  if (member == "" || category == "" || membershipNumber == "") {
-    controlModalContent("noInfo");
-  } else if (
-    member == "sample" ||
-    category == "sample" ||
-    membershipNumber == "sample"
-  ) {
-    controlModalContent("noInfo");
-  } else {
-    if (getData(membershipCategory)) {
-      controlModalContent("none");
-      downloadOption = "";
-    } else {
-      controlModalContent("catError");
-    }
+function saveCertificate(downloadFileType) {
+  switch (downloadFileType) {
+    case "PDF":
+      drawImage(member, category, membershipNumber);
+      let imgData = canvas.toDataURL();
+      const certpdf = new jsPDF({
+        orientation: "landscape",
+        unit: "px",
+        format: [canvas.width, canvas.height],
+      });
+      certpdf.addImage(imgData, "PNG", 0, 0, canvas.width, canvas.height);
+      certpdf.save("Certificate-" + capitalizeWords(member) + ".pdf");
+      break;
+    case "PNG":
+      drawImage(member, category, membershipNumber);
+      multiPurposeBtn.href = canvas.toDataURL();
+      multiPurposeBtn.download = "Certificate - " + capitalizeWords(member);
+      break;
   }
-});
+}
 
-downloadBtnPDF.addEventListener("click", function () {
-  downloadOption = "";
-  downloadOption = "PDF";
-  if (member == "" || category == "" || membershipNumber == "") {
-    controlModalContent("noInfo");
-  } else if (
-    member == "sample" ||
-    category == "sample" ||
-    membershipNumber == "sample"
-  ) {
-    controlModalContent("noInfo");
-  } else {
-    if (getData(membershipCategory)) {
-      controlModalContent("none");
-      downloadOption = "";
-    } else {
-      controlModalContent("catError");
-    }
-  }
-});
+function reset() {
+  memberName.value = memberName.defaultValue;
+  membershipCategory.value = membershipCategory.defaultValue;
+  membershipID.value = membershipID.defaultValue;
+}
