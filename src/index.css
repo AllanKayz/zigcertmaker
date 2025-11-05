@@ -34,7 +34,6 @@ body {
 .app-icon {
     width: 16px;
     height: 16px;
-    background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
     border-radius: 3px;
 }
 
@@ -50,33 +49,39 @@ body {
 }
 
 .window-btn {
-    width: 12px;
-    height: 12px;
-    border-radius: 50%;
+    width: 46px;
+    height: 32px;
+    background: transparent;
+    border: none;
     cursor: pointer;
-    transition: opacity 0.2s;
+    transition: background 0.2s;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: #ffffff;
+    font-size: 10px;
 }
 
 .window-btn:hover {
-    opacity: 0.7;
+    background: rgba(255, 255, 255, 0.1);
 }
 
-.btn-close {
-    background: #ff5f56;
+.btn-close:hover {
+    background: #e81123;
 }
 
-.btn-minimize {
-    background: #ffbd2e;
-}
-
-.btn-maximize {
-    background: #27c93f;
+.window-btn svg {
+    width: 10px;
+    height: 10px;
+    stroke: currentColor;
+    stroke-width: 1;
+    fill: none;
 }
 
 /* Main Layout */
 .app-container {
     display: flex;
-    height: calc(100vh - 32px);
+    height: calc(100vh - 54px);
 }
 
 /* Sidebar */
@@ -342,6 +347,7 @@ body {
 }
 
 /* Status Bar */
+/* Status Bar */
 .status-bar {
     height: 24px;
     background: #007acc;
@@ -353,10 +359,33 @@ body {
     color: #ffffff;
 }
 
-.status-left,
-.status-right {
+.status-left, .status-right {
     display: flex;
     gap: 16px;
+}
+
+.status-btn {
+    background: none;
+    border: none;
+    color: #ffffff;
+    font-size: 11px;
+    cursor: pointer;
+    padding: 2px 8px;
+    border-radius: 3px;
+    font-family: inherit;
+    display: flex;
+    align-items: center;
+    gap: 4px;
+    transition: background 0.2s;
+}
+
+.status-btn:hover {
+    background: rgba(255, 255, 255, 0.1);
+}
+
+.status-btn svg {
+    width: 12px;
+    height: 12px;
 }
 
 /* Scrollbar */
@@ -548,4 +577,157 @@ input:checked+.toggle-slider:before {
     height: 32px;
     border-radius: 4px;
     border: 1px solid #3c3c3c;
+}
+
+ /* Update View Specific */
+ .update-banner {
+    background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+    padding: 20px;
+    border-radius: 6px;
+    color: #ffffff;
+    margin-bottom: 20px;
+    display: flex;
+    align-items: center;
+    gap: 16px;
+}
+
+.update-icon {
+    font-size: 32px;
+    flex-shrink: 0;
+}
+
+.update-info {
+    flex: 1;
+}
+
+.update-title {
+    font-size: 16px;
+    font-weight: 600;
+    margin-bottom: 4px;
+}
+
+.update-subtitle {
+    font-size: 13px;
+    opacity: 0.9;
+}
+
+.version-info {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 16px;
+    margin-bottom: 20px;
+}
+
+.version-card {
+    background: #2d2d30;
+    padding: 16px;
+    border-radius: 6px;
+    border: 1px solid #3c3c3c;
+}
+
+.version-label {
+    font-size: 11px;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+    color: #858585;
+    margin-bottom: 8px;
+}
+
+.version-number {
+    font-size: 24px;
+    font-weight: 600;
+    color: #ffffff;
+}
+
+.changelog {
+    list-style: none;
+    padding: 0;
+}
+
+.changelog li {
+    padding: 12px 0;
+    border-bottom: 1px solid #2d2d30;
+    display: flex;
+    gap: 12px;
+}
+
+.changelog li:last-child {
+    border-bottom: none;
+}
+
+.changelog-icon {
+    flex-shrink: 0;
+    margin-top: 2px;
+}
+
+.changelog-text {
+    flex: 1;
+}
+
+.changelog-type {
+    font-size: 11px;
+    text-transform: uppercase;
+    font-weight: 600;
+    margin-bottom: 4px;
+}
+
+.changelog-type.new {
+    color: #4ec9b0;
+}
+
+.changelog-type.improved {
+    color: #569cd6;
+}
+
+.changelog-type.fixed {
+    color: #ce9178;
+}
+
+.progress-bar {
+    width: 100%;
+    height: 8px;
+    background: #2d2d30;
+    border-radius: 4px;
+    overflow: hidden;
+    margin-top: 16px;
+}
+
+.progress-fill {
+    height: 100%;
+    background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+    transition: width 0.3s ease;
+    width: 0%;
+}
+
+.update-status {
+    text-align: center;
+    padding: 12px;
+    color: #858585;
+    font-size: 12px;
+    margin-top: 8px;
+}
+
+.about-links {
+    display: flex;
+    align-items: center;
+    text-decoration: none;
+}
+
+.about-links a {
+    text-decoration: none;
+}
+
+.about-links span {
+    padding: 5px 10px;
+    color: #ffa500;
+}
+
+.about-links span:hover {
+    color: #008000;
+}
+
+.about-links img {
+    border-radius: 5px;
+    padding: 5px;
+    background-color: #ffffff;
 }

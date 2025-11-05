@@ -1,4 +1,4 @@
-const { app, BrowserWindow } = require('electron');
+const { app, BrowserWindow, ipcMain } = require('electron');
 const path = require('node:path');
 
 // Handle creating/removing shortcuts on Windows when installing/uninstalling.
@@ -11,8 +11,11 @@ const createWindow = () => {
   const mainWindow = new BrowserWindow({
     width: 800,
     height: 600,
+    frame: false,
     webPreferences: {
       preload: path.join(__dirname, 'preload.js'),
+      nodeIntegration: false,
+      contextIsolation: true
     },
     icon: path.join(__dirname, 'zigLogo.png')
   });
@@ -51,3 +54,24 @@ app.on('window-all-closed', () => {
 
 // In this file you can include the rest of your app's specific main process
 // code. You can also put them in separate files and import them here.
+
+ipcMain.on('window-minimize', (event) => {
+  const win = BrowserWindow.getFocusedWindow();
+  if (win) win.minimize();
+});
+
+ipcMain.on('window-maximize', (event) => {
+  const win = BrowserWindow.getFocusedWindow();
+  if (win && !win.isMaximized()) win.maximize();
+});
+
+ipcMain.on('window-unmaximize', (event) => {
+  const win = BrowserWindow.getFocusedWindow();
+  if (win && win.isMaximized()) win.unmaximize();
+});
+
+ipcMain.on('window-close', (event) => {
+  const win = BrowserWindow.getFocusedWindow();
+  if (win) win.close();
+});
+

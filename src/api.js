@@ -1,5 +1,3 @@
-"use strict";
-
 const { jsPDF } = window.jspdf;
 
 const canvas = document.getElementById("canvas");
@@ -28,6 +26,19 @@ image.onload = function () {
   drawImage(member, category, membershipNumber);
 };
 
+// Title bar 
+document.getElementById('min-btn').addEventListener('click', () => window.electronAPI.minimize());
+
+document.getElementById('max-btn').addEventListener('click', () => {
+    if (window.outerWidth === screen.availWidth && window.outerHeight === screen.availHeight) {
+        window.electronAPI.unmaximize();
+    } else {
+        window.electronAPI.maximize();
+    }
+});
+
+document.getElementById('close-btn').addEventListener('click', () => window.electronAPI.close());
+
 // Sidebar toggle
 function toggleSidebar() {
   const sidebar = document.querySelector(".sidebar");
@@ -55,41 +66,102 @@ document.addEventListener("click", function (e) {
 
 // Navigation functionality
 const views = {
-  create: { title: "Create New Certificate", viewId: "createView" },
-  templates: { title: "Templates", viewId: "templatesView" },
-  history: { title: "Certificate History", viewId: "historyView" },
-  settings: { title: "Settings", viewId: "settingsView" },
+  'create': { title: 'Create New Certificate', viewId: 'createView' },
+  'templates': { title: 'Templates', viewId: 'templatesView' },
+  'history': { title: 'Certificate History', viewId: 'historyView' },
+  'settings': { title: 'Settings', viewId: 'settingsView' },
+  'update': { title: 'Software Updates', viewId: 'updateView' }
 };
 
-document.querySelectorAll(".nav-item").forEach((item) => {
-  item.addEventListener("click", function () {
-    // Update active nav item
-    document
-      .querySelectorAll(".nav-item")
-      .forEach((i) => i.classList.remove("active"));
-    this.classList.add("active");
-
-    // Get view name
-    const viewName = this.getAttribute("data-view");
-    const view = views[viewName];
-
-    if (view) {
-      // Update page title
-      document.getElementById("pageTitle").textContent = view.title;
-
-      // Show corresponding view
-      document
-        .querySelectorAll(".page-view")
-        .forEach((v) => v.classList.remove("active"));
-      document.getElementById(view.viewId).classList.add("active");
-
-      // Close sidebar on mobile after selection
-      if (window.innerWidth <= 768) {
-        document.querySelector(".sidebar").classList.remove("open");
+document.querySelectorAll('.nav-item').forEach(item => {
+  item.addEventListener('click', function() {
+      // Update active nav item
+      document.querySelectorAll('.nav-item').forEach(i => i.classList.remove('active'));
+      this.classList.add('active');
+      
+      // Get view name
+      const viewName = this.getAttribute('data-view');
+      const view = views[viewName];
+      
+      if (view) {
+          // Update page title
+          document.getElementById('pageTitle').textContent = view.title;
+          
+          // Show corresponding view
+          document.querySelectorAll('.page-view').forEach(v => v.classList.remove('active'));
+          document.getElementById(view.viewId).classList.add('active');
+          
+          // Close sidebar on mobile after selection
+          if (window.innerWidth <= 768) {
+              document.querySelector('.sidebar').classList.remove('open');
+          }
       }
-    }
   });
 });
+
+// Update functionality
+function checkForUpdatesFromStatus() {
+  // Switch to updates view
+  document.querySelectorAll('.nav-item').forEach(i => i.classList.remove('active'));
+  document.querySelector('[data-view="update"]').classList.add('active');
+  document.getElementById('pageTitle').textContent = 'Software Updates';
+  document.querySelectorAll('.page-view').forEach(v => v.classList.remove('active'));
+  document.getElementById('updateView').classList.add('active');
+  
+  // Trigger check
+  checkForUpdates();
+}
+
+function checkForUpdates() {
+  const latestVersionEl = document.getElementById('latestVersion');
+  const banner = document.getElementById('updateAvailableBanner');
+  const whatsNew = document.getElementById('whatsNewSection');
+  
+  // Simulate checking for updates
+  latestVersionEl.textContent = 'Checking...';
+  
+  setTimeout(() => {
+      // Simulate finding an update
+      latestVersionEl.textContent = '1.0.0';
+      banner.style.display = 'flex';
+      //whatsNew.style.display = 'block';
+  }, 1500);
+}
+
+function startUpdate() {
+  const progressDiv = document.getElementById('updateProgress');
+  const progressFill = document.getElementById('progressFill');
+  const statusText = document.getElementById('updateStatus');
+  const banner = document.getElementById('updateAvailableBanner');
+  
+  banner.style.display = 'none';
+  progressDiv.style.display = 'block';
+  
+  let progress = 0;
+  const statuses = [
+      'Preparing download...',
+      'Downloading update... (0%)',
+      'Downloading update... (25%)',
+      'Downloading update... (50%)',
+      'Downloading update... (75%)',
+      'Downloading update... (100%)',
+      'Installing update...',
+      'Finalizing installation...',
+      'Update complete! Restart required.'
+  ];
+  
+  const interval = setInterval(() => {
+      if (progress <= 100) {
+          progressFill.style.width = progress + '%';
+          const statusIndex = Math.floor((progress / 100) * (statuses.length - 1));
+          statusText.textContent = statuses[statusIndex];
+          progress += 2;
+      } else {
+          clearInterval(interval);
+          statusText.innerHTML = '<strong>Update installed successfully!</strong> Please restart the application.';
+      }
+  }, 100);
+}
 
 // Modal functions
 function openModal(modal) {
@@ -97,7 +169,6 @@ function openModal(modal) {
     document.getElementById("certificateModal").classList.add("active");
   } else {
     document.getElementById("infoModal").classList.add("active");
-    console.log(modal);
     if (modal == "noInfo" || modal == "error") {
       modalTitle.innerText = "Error";
       modalContent.innerText =
@@ -251,15 +322,9 @@ function preview() {
   let img = new Image();
   img.src = dataURL;
 
-  if (previewWindow.children.length > 0) {
-    previewWindow.parentNode.removeChild(img);
-    let newDataURL = canvas.toDataURL();
-    let newImg = new Image();
-    newImg.src = newDataURL + "?" + new Date().getTime();
-    previewWindow.appendChild(newImg);
-  } else {
-    previewWindow.appendChild(img);
-  }
+  // Clear previous preview
+  previewWindow.innerHTML = "";
+  previewWindow.appendChild(img);
 }
 
 function saveCertificate(downloadFileType) {
@@ -287,4 +352,6 @@ function reset() {
   memberName.value = memberName.defaultValue;
   membershipCategory.value = membershipCategory.defaultValue;
   membershipID.value = membershipID.defaultValue;
+  previewWindow.innerHTML = "";
+  previewPlaceholder.classList.remove("hide");
 }

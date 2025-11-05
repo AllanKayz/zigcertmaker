@@ -15,13 +15,27 @@
     <!-- Title Bar -->
     <div class="title-bar">
         <div class="title-bar-left">
-            <div class="app-icon"></div>
+            <div class="app-icon">
+                <img src="zigLogo.png" style="height: 16px; width: 16px;" />
+            </div>
             <span class="app-title">Certificate Generator</span>
         </div>
         <div class="window-controls">
-            <div class="window-btn btn-close"></div>
-            <div class="window-btn btn-minimize"></div>
-            <div class="window-btn btn-maximize"></div>
+            <div id="min-btn" class="window-btn btn-minimize" title="Minimize">
+                <svg viewBox="0 0 10 1">
+                    <path d="M0 0.5h10" />
+                </svg>
+            </div>
+            <div id="max-btn" class="window-btn btn-maximize" title="Maximize">
+                <svg viewBox="0 0 10 10">
+                    <path d="M0.5 0.5h9v9h-9z" />
+                </svg>
+            </div>
+            <div id="close-btn" class="window-btn btn-close" title="Close">
+                <svg viewBox="0 0 10 10">
+                    <path d="M0 0L10 10M10 0L0 10" />
+                </svg>
+            </div>
         </div>
     </div>
 
@@ -42,22 +56,22 @@
                     </svg>
                     Create Certificate
                 </div>
-                <div class="nav-item" data-view="templates">
+                <!--div class="nav-item" data-view="templates">
                     <svg class="nav-icon" fill="currentColor" viewBox="0 0 20 20">
                         <path fill-rule="evenodd"
                             d="M3 4a1 1 0 011-1h12a1 1 0 110 2H4a1 1 0 01-1-1zm0 4a1 1 0 011-1h12a1 1 0 110 2H4a1 1 0 01-1-1zm0 4a1 1 0 011-1h12a1 1 0 110 2H4a1 1 0 01-1-1zm0 4a1 1 0 011-1h12a1 1 0 110 2H4a1 1 0 01-1-1z"
                             clip-rule="evenodd" />
                     </svg>
                     Templates
-                </div>
-                <div class="nav-item" data-view="history">
+                </div-->
+                <!--div class="nav-item" data-view="history">
                     <svg class="nav-icon" fill="currentColor" viewBox="0 0 20 20">
                         <path fill-rule="evenodd"
                             d="M10 18a8 8 0 100-16 8 8 0 000 16zm1-12a1 1 0 10-2 0v4a1 1 0 00.293.707l2.828 2.829a1 1 0 101.415-1.415L11 9.586V6z"
                             clip-rule="evenodd" />
                     </svg>
                     History
-                </div>
+                </div-->
                 <div class="nav-item" data-view="settings">
                     <svg class="nav-icon" fill="currentColor" viewBox="0 0 20 20">
                         <path fill-rule="evenodd"
@@ -65,6 +79,14 @@
                             clip-rule="evenodd" />
                     </svg>
                     Settings
+                </div>
+                <div class="nav-item" data-view="update">
+                    <svg class="nav-icon" fill="currentColor" viewBox="0 0 20 20">
+                        <path fill-rule="evenodd"
+                            d="M4 2a1 1 0 011 1v2.101a7.002 7.002 0 0111.601 2.566 1 1 0 11-1.885.666A5.002 5.002 0 005.999 7H9a1 1 0 010 2H4a1 1 0 01-1-1V3a1 1 0 011-1zm.008 9.057a1 1 0 011.276.61A5.002 5.002 0 0014.001 13H11a1 1 0 110-2h5a1 1 0 011 1v5a1 1 0 11-2 0v-2.101a7.002 7.002 0 01-11.601-2.566 1 1 0 01.61-1.276z"
+                            clip-rule="evenodd" />
+                    </svg>
+                    Updates
                 </div>
             </nav>
         </div>
@@ -130,33 +152,33 @@
 
                     <!-- Action Buttons -->
                     <div class="button-group">
-                        <button class ="btn btn-primary" onclick="checkForErrors()">Generate Certificate</button>
+                        <button class="btn btn-primary" onclick="checkForErrors()">Generate Certificate</button>
                         <button class="btn btn-secondary" onclick="preview()">Preview Certificate</button>
                         <button class="btn btn-secondary" onclick="reset()">Reset</button>
                     </div>
                 </div>
 
                 <!-- Templates View -->
-                <div class="page-view" id="templatesView">
+                <!--div class="page-view" id="templatesView">
                     <div class="form-section">
                         <h2 class="section-title">Available Templates</h2>
                         <p style="color: #858585; margin-top: 8px;">Browse and select from our collection of certificate
                             templates.</p>
                     </div>
-                </div>
+                </div-->
 
                 <!-- History View -->
-                <div class="page-view" id="historyView">
+                <!--div class="page-view" id="historyView">
                     <div class="form-section">
                         <h2 class="section-title">Certificate History</h2>
                         <p style="color: #858585; margin-top: 8px;">View all previously generated certificates.</p>
                     </div>
-                </div>
+                </div-->
 
                 <!-- Settings View -->
                 <div class="page-view" id="settingsView">
                     <!-- General Settings -->
-                    <div class="form-section settings-grid">
+                    <!--div class="form-section settings-grid">
                         <h2 class="section-title">General Settings</h2>
 
                         <div class="setting-item">
@@ -193,7 +215,7 @@
                                 <span class="toggle-slider"></span>
                             </label>
                         </div>
-                    </div>
+                    </div-->
 
                     <!-- Appearance Settings -->
                     <div class="form-section settings-grid">
@@ -237,7 +259,7 @@
                     </div>
 
                     <!-- Default Settings -->
-                    <div class="form-section settings-grid">
+                    <!--div class="form-section settings-grid">
                         <h2 class="section-title">Certificate Defaults</h2>
 
                         <div class="form-group">
@@ -264,10 +286,10 @@
                                 <option>SVG</option>
                             </select>
                         </div>
-                    </div>
+                    </div-->
 
                     <!-- Advanced Settings -->
-                    <div class="form-section settings-grid">
+                    <!--div class="form-section settings-grid">
                         <h2 class="section-title">Advanced</h2>
 
                         <div class="setting-item">
@@ -296,7 +318,7 @@
                             </div>
                             <button class="btn btn-secondary">Reset</button>
                         </div>
-                    </div>
+                    </div-->
 
                     <!-- Save Button -->
                     <div class="button-group">
@@ -304,8 +326,204 @@
                         <button class="btn btn-secondary">Cancel</button>
                     </div>
                 </div>
+
+                <!-- Updates View -->
+                <div class="page-view" id="updateView">
+                    <!-- Update Available Banner -->
+                    <div class="update-banner" id="updateAvailableBanner" style="display: none;">
+                        <div class="update-icon">🎉</div>
+                        <div class="update-info">
+                            <!--div class="update-title">New Update Available!</div>
+                            <div class="update-subtitle">Version 2.0.0 is ready to install with exciting new features</div-->
+                            <div class="update-title">No New Update Available!</div>
+                            <div class="update-subtitle">You are on the current latest version</div>
+                        </div>
+                        <!--button class="btn btn-primary" onclick="startUpdate()">Install Now</button-->
+                    </div>
+
+                    <!-- Current Status -->
+                    <div class="form-section">
+                        <h2 class="section-title">Current Version</h2>
+                        <div class="version-info">
+                            <div class="version-card">
+                                <div class="version-label">Installed Version</div>
+                                <div class="version-number">1.0.0</div>
+                            </div>
+                            <div class="version-card">
+                                <div class="version-label">Latest Version</div>
+                                <div class="version-number" id="latestVersion">1.0.0</div>
+                            </div>
+                        </div>
+
+                        <div class="button-group">
+                            <button class="btn btn-primary" onclick="checkForUpdates()">
+                                <svg style="width: 14px; height: 14px; margin-right: 6px;" fill="currentColor"
+                                    viewBox="0 0 20 20">
+                                    <path fill-rule="evenodd"
+                                        d="M4 2a1 1 0 011 1v2.101a7.002 7.002 0 0111.601 2.566 1 1 0 11-1.885.666A5.002 5.002 0 005.999 7H9a1 1 0 010 2H4a1 1 0 01-1-1V3a1 1 0 011-1zm.008 9.057a1 1 0 011.276.61A5.002 5.002 0 0014.001 13H11a1 1 0 110-2h5a1 1 0 011 1v5a1 1 0 11-2 0v-2.101a7.002 7.002 0 01-11.601-2.566 1 1 0 01.61-1.276z"
+                                        clip-rule="evenodd" />
+                                </svg>
+                                Check for Updates
+                            </button>
+                            <button class="btn btn-secondary">Release Notes</button>
+                        </div>
+
+                        <!-- Update Progress (hidden by default) -->
+                        <div id="updateProgress" style="display: none;">
+                            <div class="progress-bar">
+                                <div class="progress-fill" id="progressFill"></div>
+                            </div>
+                            <div class="update-status" id="updateStatus">Preparing download...</div>
+                        </div>
+                    </div>
+
+                    <!-- What's New -->
+                    <div class="form-section" id="whatsNewSection" style="display: none;">
+                        <h2 class="section-title">What's New in Version 2.0.0</h2>
+                        <ul class="changelog">
+                            <li>
+                                <div class="changelog-icon">✨</div>
+                                <div class="changelog-text">
+                                    <div class="changelog-type new">New</div>
+                                    <div>Advanced template editor with drag-and-drop functionality</div>
+                                </div>
+                            </li>
+                            <li>
+                                <div class="changelog-icon">🎨</div>
+                                <div class="changelog-text">
+                                    <div class="changelog-type new">New</div>
+                                    <div>10 additional professional certificate templates</div>
+                                </div>
+                            </li>
+                            <li>
+                                <div class="changelog-icon">⚡</div>
+                                <div class="changelog-text">
+                                    <div class="changelog-type improved">Improved</div>
+                                    <div>PDF export is now 3x faster with better quality</div>
+                                </div>
+                            </li>
+                            <li>
+                                <div class="changelog-icon">🔧</div>
+                                <div class="changelog-text">
+                                    <div class="changelog-type improved">Improved</div>
+                                    <div>Enhanced performance and reduced memory usage</div>
+                                </div>
+                            </li>
+                            <li>
+                                <div class="changelog-icon">🐛</div>
+                                <div class="changelog-text">
+                                    <div class="changelog-type fixed">Fixed</div>
+                                    <div>Resolved issue with special characters in recipient names</div>
+                                </div>
+                            </li>
+                            <li>
+                                <div class="changelog-icon">🔒</div>
+                                <div class="changelog-text">
+                                    <div class="changelog-type fixed">Fixed</div>
+                                    <div>Security improvements and bug fixes</div>
+                                </div>
+                            </li>
+                        </ul>
+                    </div>
+
+                    <!-- Update Settings -->
+                    <div class="form-section settings-grid">
+                        <h2 class="section-title">Update Preferences</h2>
+
+                        <div class="setting-item">
+                            <div class="setting-info">
+                                <div class="setting-title">Automatic updates</div>
+                                <div class="setting-description">Automatically download and install updates</div>
+                            </div>
+                            <label class="toggle-switch">
+                                <input type="checkbox" checked>
+                                <span class="toggle-slider"></span>
+                            </label>
+                        </div>
+
+                        <div class="setting-item">
+                            <div class="setting-info">
+                                <div class="setting-title">Check for updates on startup</div>
+                                <div class="setting-description">Check for available updates when app launches</div>
+                            </div>
+                            <label class="toggle-switch">
+                                <input type="checkbox" checked>
+                                <span class="toggle-slider"></span>
+                            </label>
+                        </div>
+
+                        <div class="setting-item">
+                            <div class="setting-info">
+                                <div class="setting-title">Beta updates</div>
+                                <div class="setting-description">Receive early access to beta features and updates</div>
+                            </div>
+                            <label class="toggle-switch">
+                                <input type="checkbox">
+                                <span class="toggle-slider"></span>
+                            </label>
+                        </div>
+                    </div>
+
+                    <!-- About Section -->
+                    <div class="form-section settings-grid">
+                        <h2 class="section-title">About</h2>
+                        <div class="setting-item">
+                            <div class="setting-info">
+                                <div class="setting-title">Application Name:</div>
+                                <div class="setting-description">ZIG Certificate Generator</div>
+                            </div>
+                        </div>
+                        <div class="setting-item">
+                            <div class="setting-info">
+                                <div class="setting-title">Version:</div>
+                                <div class="setting-description">1.0.0</div>
+                            </div>
+                        </div>
+                        <div class="setting-item">
+                            <div class="setting-info">
+                                <div class="setting-title">Build:</div>
+                                <div class="setting-description">2025.11.05</div>
+                            </div>
+                        </div>
+                        <div class="setting-item">
+                            <div class="setting-info">
+                                <div class="setting-title">Platform:</div>
+                                <div class="setting-description">Windows</div>
+                            </div>
+                        </div>
+                        <div class="setting-item">
+                            <div class="setting-info">
+                                <div class="setting-title">Developer:</div>
+                                <div class="setting-description">
+                                    <a href="allankayz.co.zw" class="about-links">
+                                        <img src="AKLogo.ico" width="40" height="40" class="img-about" alt="AK">
+                                        <span>AllanKayz Technologies</span>
+                                    </a>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="setting-item">
+                            <div class="setting-info">
+                                <div class="setting-title">Copyright:</div>
+                                <div class="setting-description">
+                                    <a href="zigeomatics.org.zw" class="about-links">
+                                        <img src="zigLogo.png" width="40" height="40" class="img-about" alt="ZIG">
+                                        <span>Zimbabwe Institute of Geomatics</span>
+                                    </a>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="setting-item">
+                            <div class="setting-info">
+                                <div class="setting-title">License:</div>
+                                <div class="setting-description">Proprietary Software</div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
             </div>
         </div>
+    </div>
     </div>
 
     <!-- Status Bar -->
@@ -315,8 +533,16 @@
             <span>v1.0.0</span>
         </div>
         <div class="status-right">
-            <span>Certificates: 0</span>
-            <span>Templates: 4</span>
+            <!--span>Certificates: 0</span>
+            <span>Templates: 4</span-->
+            <button class="status-btn" onclick="checkForUpdatesFromStatus()" title="Check for updates">
+                <svg fill="currentColor" viewBox="0 0 20 20">
+                    <path fill-rule="evenodd"
+                        d="M4 2a1 1 0 011 1v2.101a7.002 7.002 0 0111.601 2.566 1 1 0 11-1.885.666A5.002 5.002 0 005.999 7H9a1 1 0 010 2H4a1 1 0 01-1-1V3a1 1 0 011-1zm.008 9.057a1 1 0 011.276.61A5.002 5.002 0 0014.001 13H11a1 1 0 110-2h5a1 1 0 011 1v5a1 1 0 11-2 0v-2.101a7.002 7.002 0 01-11.601-2.566 1 1 0 01.61-1.276z"
+                        clip-rule="evenodd" />
+                </svg>
+                Check for Updates
+            </button>
         </div>
     </div>
 
@@ -331,7 +557,8 @@
                 <p style="margin-bottom: 20px;">Your certificate has been generated and is ready to download.</p>
                 <div class="button-group">
                     <button onclick="saveCertificate('PDF')" class="btn btn-primary">Download PDF</button>
-                    <a href="" id="multiPurposeBtn" onclick="saveCertificate('PNG')" class="btn btn-primary">Download PNG</a>
+                    <a href="" id="multiPurposeBtn" onclick="saveCertificate('PNG')" class="btn btn-primary">Download
+                        PNG</a>
                     <button class="btn btn-secondary" onclick="closeModal('certificate')">Close</button>
                 </div>
             </div>
@@ -339,7 +566,7 @@
     </div>
 
     <!-- Modal Info -->
-     <div class="modal" id="infoModal">
+    <div class="modal" id="infoModal">
         <div class="modal-content">
             <div class="modal-header">
                 <h3 id="modalInfoTitle" class="modal-title">Info</h3>
@@ -352,9 +579,8 @@
                 </div>
             </div>
         </div>
-     </div>
-
-    <script src="./api.js"></script>
+    </div>
 </body>
+<script src="./api.js"></script>
 
 </html>
