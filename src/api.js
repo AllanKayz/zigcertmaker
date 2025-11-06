@@ -460,9 +460,9 @@ function applyAccentColor(color) {
 // Apply font size
 function applyFontSize(size) {
   const sizes = {
-    small: "12px",
-    medium: "14px",
-    large: "16px",
+    small: "14px",
+    medium: "18px",
+    large: "22px",
   };
 
   document.documentElement.style.setProperty(
