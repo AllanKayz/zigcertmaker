@@ -227,9 +227,9 @@
                                 <div class="setting-description">Choose your preferred color theme</div>
                             </div>
                             <select class="form-select" style="width: 200px;">
-                                <option>Dark</option>
-                                <option>Light</option>
-                                <option>System Default</option>
+                                <option value="dark">Dark</option>
+                                <option value="light">Light</option>
+                                <option value="system">System Default</option>
                             </select>
                         </div>
 
@@ -322,7 +322,7 @@
 
                     <!-- Save Button -->
                     <div class="button-group">
-                        <button class="btn btn-primary">Save Settings</button>
+                        <button id="save-appearance" class="btn btn-primary save-appearance">Save Settings</button>
                         <button class="btn btn-secondary">Cancel</button>
                     </div>
                 </div>
@@ -556,9 +556,9 @@
             <div class="modal-body">
                 <p style="margin-bottom: 20px;">Your certificate has been generated and is ready to download.</p>
                 <div class="button-group">
-                    <button onclick="saveCertificate('PDF')" class="btn btn-primary">Download PDF</button>
-                    <a href="" id="multiPurposeBtn" onclick="saveCertificate('PNG')" class="btn btn-primary">Download
-                        PNG</a>
+                    <button onclick="saveCertificate('PDF')" class="btn btn-primary">Save as PDF</button>
+                    <a href="" id="multiPurposeBtn" onclick="saveCertificate('PNG')" class="btn btn-primary">
+                        Save as PNG</a>
                     <button class="btn btn-secondary" onclick="closeModal('certificate')">Close</button>
                 </div>
             </div>

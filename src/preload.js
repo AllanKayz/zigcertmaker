@@ -2,6 +2,7 @@
 // https://www.electronjs.org/docs/latest/tutorial/process-model#preload-scripts
 
 const { contextBridge, ipcRenderer } = require('electron');
+//const { Store } = require('electron-store');
 
 contextBridge.exposeInMainWorld('electronAPI', {
     minimize:  () => ipcRenderer.send('window-minimize'),
