@@ -12,7 +12,7 @@ if (
   document.querySelector(".title-bar").classList.add("hide");
   document.querySelector(".status-bar").style.display = "none";
   document.querySelector(".updates").classList.add("hide");
-  document.querySelector(".app-container").style.cssText = `display: flex; height: calc(100vh-20px);`;
+  document.querySelector(".app-container").style.cssText = `display: flex; height: calc(100vh-40px);`;
 }
 
 const canvas = document.getElementById("canvas");
