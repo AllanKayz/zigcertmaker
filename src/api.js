@@ -1,5 +1,20 @@
 const { jsPDF } = window.jspdf;
 
+// Check Platform first
+if (
+  typeof navigator === "object" &&
+  typeof navigator.userAgent === "string" &&
+  navigator.userAgent.indexOf('Electron') >= 0
+) {
+  // Running in electron keep default settings
+  document.querySelector(".status-bar").style.display = "flex";
+} else {
+  document.querySelector(".title-bar").classList.add("hide");
+  document.querySelector(".status-bar").style.display = "none";
+  document.querySelector(".updates").classList.add("hide");
+  document.querySelector(".app-container").style.cssText = `display: flex; height: calc(100vh - 0px);`;
+}
+
 const canvas = document.getElementById("canvas");
 const ctx = canvas.getContext("2d");
 const memberName = document.getElementById("memberName");
@@ -640,4 +655,3 @@ if (window.matchMedia) {
       }
     });
 }
-
