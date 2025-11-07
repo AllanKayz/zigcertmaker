@@ -226,8 +226,8 @@
                                 <div class="setting-title">Theme</div>
                                 <div class="setting-description">Choose your preferred color theme</div>
                             </div>
-                            <select class="form-select" style="width: 200px;">
-                                <option value="dark">Dark</option>
+                            <select class="form-select" name="theme" style="width: 200px;">
+                                <option value="dark" selected>Dark</option>
                                 <option value="light">Light</option>
                                 <option value="system">System Default</option>
                             </select>
@@ -250,7 +250,7 @@
                                 <div class="setting-title">Font size</div>
                                 <div class="setting-description">Adjust the interface font size</div>
                             </div>
-                            <select class="form-select" style="width: 200px;">
+                            <select class="form-select" name="fontSize" style="width: 200px;">
                                 <option value="small">Small</option>
                                 <option selected value="medium">Medium</option>
                                 <option value="large">Large</option>
@@ -581,6 +581,6 @@
         </div>
     </div>
 </body>
-<script src="./api.js"></script>
+<script type="module" src="./api.js"></script>
 
 </html>

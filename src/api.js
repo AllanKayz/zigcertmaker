@@ -14,10 +14,10 @@ function setupPlatformUI() {
     document.querySelector(".title-bar")?.classList.add("hide");
     document.querySelector(".status-bar")?.style.setProperty("display", "none");
     document.querySelector(".updates")?.classList.add("hide");
-    // Corrected calc expression
+    //calc expression
     document.querySelector(".app-container")?.style.setProperty(
       "height",
-      "calc(100vh - 120px)"
+      "calc(100vh - 10px)"
     );
     document.querySelector(".app-container")?.style.setProperty(
       "display",
@@ -382,6 +382,7 @@ function loadSettings() {
     }
   } catch {
     // fallback
+    settings = settings;
   }
   applySettings();
 }
