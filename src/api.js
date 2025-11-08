@@ -23,6 +23,16 @@ function setupPlatformUI() {
       "display",
       "flex"
     );
+	const footer = document.createElement("div");
+    footer.style.cssText = `
+      position: fixed; bottom: 0; right: 0; left: 0;
+      width: 100%;
+      background: var(--bg-secondary);
+      color: var(--text-primary); padding: 12px 20px;
+      bordor: var(--border-color);
+      font-size: 14px; transition: all 0.3s ease;`;
+    footer.innerHTML = `<footer><img src='zigLogo.png' width='25' height='25' alt='ZIG'> Rights Reserved | Powered by <a href='allankayz.co.zw'><img src='AKLogo.ico' width='20' height='20' alt='AllanKayz'></a></footer>`;
+    document.body.appendChild(footer);
   }
 }
 setupPlatformUI();

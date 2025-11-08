@@ -304,6 +304,8 @@ input:checked+.toggle-slider:before { transform: translateX(20px); }
 .hide { display: none; }
 #canvas { display: none; }
 #multiPurposeBtn { text-decoration: none; }
-#preview img { width: 555.833px; height: 394px; object-fit: cover; }
+#preview img { max-width: 100%; height: auto; object-fit: cover; }
+footer { display: flex; justify-content: center; }
+footer img { margin-right: 5px; margin-left: 5px; }
 
 /* ...end of file... */
