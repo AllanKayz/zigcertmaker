@@ -2,7 +2,7 @@
 
 ## Overview
 
-Zig Cert Maker App is a tool designed to simplify the process of creating and managing certificates. Whether you're generating certificates for educational purposes, events, or professional achievements, this app provides an intuitive and efficient solution.
+[Zig Cert Maker App](https://zigcertmaker.netlify.app) is a tool designed to simplify the process of creating and managing certificates. Whether you're generating certificates for educational purposes, events, or professional achievements, this app provides an intuitive and efficient solution.
 
 ## Features
 
