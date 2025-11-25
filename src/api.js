@@ -384,6 +384,10 @@ let settings = {
   fontSize: "medium"
 };
 
+/**
+ * @description Loads user settings from local storage and applies them to the UI.
+ * If no settings are found, default settings are applied.
+ */
 function loadSettings() {
   try {
     const savedSettings = localStorage.getItem("certificateMakerSettings");
@@ -397,6 +401,9 @@ function loadSettings() {
   applySettings();
 }
 
+/**
+ * @description Saves the current settings to local storage and applies them to the UI.
+ */
 function saveSettings() {
   localStorage.setItem(
     "certificateMakerSettings",
@@ -405,6 +412,9 @@ function saveSettings() {
   applySettings();
 }
 
+/**
+ * @description Applies all appearance settings to the UI.
+ */
 function applySettings() {
   applyTheme(settings.theme);
   applyAccentColor(settings.accentColor);
@@ -412,6 +422,10 @@ function applySettings() {
   updateFormControls();
 }
 
+/**
+ * @description Applies the selected theme to the application.
+ * @param {string} theme - The theme to apply ('light', 'dark', or 'system').
+ */
 function applyTheme(theme) {
   document.body.setAttribute("data-theme", theme);
   const styles =
@@ -444,6 +458,10 @@ function applyTheme(theme) {
   }
 }
 
+/**
+ * @description Applies the selected accent color to the application.
+ * @param {string} color - The accent color to apply (in hex format).
+ */
 function applyAccentColor(color) {
   const darkerColor = shadeColor(color, -30);
   document.documentElement.style.setProperty("--accent-primary", color);
@@ -456,6 +474,12 @@ function applyAccentColor(color) {
   if (preview) preview.style.background = `linear-gradient(135deg, ${color} 0%, ${darkerColor} 100%)`;
 }
 
+/**
+ * @description Darkens or lightens a color by a given percentage.
+ * @param {string} color - The color to shade (in hex format).
+ * @param {number} percent - The percentage to shade the color by (negative for darker, positive for lighter).
+ * @returns {string} The shaded color in hex format.
+ */
 function shadeColor(color, percent) {
   let R = parseInt(color.substr(1, 2), 16);
   let G = parseInt(color.substr(3, 2), 16);
@@ -471,6 +495,10 @@ function shadeColor(color, percent) {
   );
 }
 
+/**
+ * @description Applies the selected font size to the application.
+ * @param {string} size - The font size to apply ('small', 'medium', or 'large').
+ */
 function applyFontSize(size) {
   const sizes = {
     small: "14px",
@@ -484,25 +512,32 @@ function applyFontSize(size) {
   updateFontSizeSpecifics(size);
 }
 
+/**
+ * @description Updates the font size of specific UI elements based on the selected size.
+ * @param {string} size - The font size to apply ('small', 'medium', or 'large').
+ */
 function updateFontSizeSpecifics(size) {
   const scale = { small: 0.9, medium: 1, large: 1.1 }[size] ?? 1;
-  $(".app-title") && ($(".app-title").style.fontSize = `${12 * scale}px`);
-  $(".sidebar-title") && ($(".sidebar-title").style.fontSize = `${11 * scale}px`);
+  $(".app-title")?.style.setProperty("font-size", `${12 * scale}px`);
+  $(".sidebar-title")?.style.setProperty("font-size", `${11 * scale}px`);
   document.querySelectorAll(".nav-item").forEach(
-    (item) => (item.style.fontSize = `${13 * scale}px`)
+    (item) => item.style.setProperty("font-size", `${13 * scale}px`)
   );
-  $(".content-title") && ($(".content-title").style.fontSize = `${16 * scale}px`);
+  $(".content-title")?.style.setProperty("font-size", `${16 * scale}px`);
   document.querySelectorAll(".section-title").forEach(
-    (el) => (el.style.fontSize = `${14 * scale}px`)
+    (el) => el.style.setProperty("font-size", `${14 * scale}px`)
   );
   document.querySelectorAll(".form-label").forEach(
-    (label) => (label.style.fontSize = `${12 * scale}px`)
+    (label) => label.style.setProperty("font-size", `${12 * scale}px`)
   );
   document
     .querySelectorAll(".form-input, .form-select, .btn")
-    .forEach((el) => (el.style.fontSize = `${13 * scale}px`));
+    .forEach((el) => el.style.setProperty("font-size", `${13 * scale}px`));
 }
 
+/**
+ * @description Updates the form controls in the settings view to reflect the current settings.
+ */
 function updateFormControls() {
   const themeSelect = $('select[name="theme"]');
   if (themeSelect) themeSelect.value = settings.theme;
