@@ -199,6 +199,17 @@ function setupEventListeners() {
       if (settings.theme === "system") applyTheme("system");
     });
   }
+
+  // Template Selection
+  document.querySelectorAll(".template-card").forEach((card) => {
+    card.addEventListener("click", (e) => {
+      const newTemplate = e.currentTarget.querySelector("img").src;
+      image.src = newTemplate;
+      image.onload = () => {
+        drawImage(member, category, membershipNumber);
+      };
+    });
+  });
 }
 
 // ===== CERTIFICATE LOGIC =====
@@ -298,6 +309,7 @@ function saveCertificate(downloadFileType) {
       break;
     }
   }
+  saveCertificateToHistory(member, category, membershipNumber);
 }
 
 /**
