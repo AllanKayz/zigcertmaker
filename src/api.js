@@ -486,21 +486,21 @@ function applyFontSize(size) {
 
 function updateFontSizeSpecifics(size) {
   const scale = { small: 0.9, medium: 1, large: 1.1 }[size] ?? 1;
-  $(".app-title") && ($(".app-title").style.fontSize = `${12 * scale}px`);
-  $(".sidebar-title") && ($(".sidebar-title").style.fontSize = `${11 * scale}px`);
+  $(".app-title")?.style.setProperty("font-size", `${12 * scale}px`);
+  $(".sidebar-title")?.style.setProperty("font-size", `${11 * scale}px`);
   document.querySelectorAll(".nav-item").forEach(
-    (item) => (item.style.fontSize = `${13 * scale}px`)
+    (item) => item.style.setProperty("font-size", `${13 * scale}px`)
   );
-  $(".content-title") && ($(".content-title").style.fontSize = `${16 * scale}px`);
+  $(".content-title")?.style.setProperty("font-size", `${16 * scale}px`);
   document.querySelectorAll(".section-title").forEach(
-    (el) => (el.style.fontSize = `${14 * scale}px`)
+    (el) => el.style.setProperty("font-size", `${14 * scale}px`)
   );
   document.querySelectorAll(".form-label").forEach(
-    (label) => (label.style.fontSize = `${12 * scale}px`)
+    (label) => label.style.setProperty("font-size", `${12 * scale}px`)
   );
   document
     .querySelectorAll(".form-input, .form-select, .btn")
-    .forEach((el) => (el.style.fontSize = `${13 * scale}px`));
+    .forEach((el) => el.style.setProperty("font-size", `${13 * scale}px`));
 }
 
 function updateFormControls() {
